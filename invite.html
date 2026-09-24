@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<title>一起照顧狗狗｜Doggie's Diary</title>
+<style>
+:root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif;color:#5b5047;background:#fbf7ef}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:24px}
+main{width:min(100%,430px);background:#fffefa;border:1px solid #e9e0d4;border-radius:28px;padding:28px;box-shadow:0 18px 48px #5b504712}
+.mark{font-size:38px}.eyebrow{font-size:12px;letter-spacing:.2em;color:#788c76}h1{font-size:27px;line-height:1.35;margin:12px 0}
+p{line-height:1.7;color:#81766d}section{border-top:1px solid #eee6dd;padding-top:17px;margin-top:22px}
+h2{font-size:17px;margin:0 0 8px}.code{background:#f6f2ea;border-radius:14px;padding:12px;font-size:15px;overflow-wrap:anywhere;user-select:all}
+a.button,button{display:flex;align-items:center;justify-content:center;width:100%;min-height:50px;margin-top:12px;border:0;border-radius:16px;background:#76967d;color:white;text-decoration:none;font:inherit;font-weight:700;cursor:pointer}
+button.secondary{background:#edf3e9;color:#526d58}.note{font-size:13px}.error{color:#9a523c}
+</style>
+</head>
+<body><main>
+<div class="mark">♡</div><p class="eyebrow">DOGGIE'S DIARY · CARE TOGETHER</p>
+<h1>一起照顧狗狗</h1>
+<p>主人邀請你加入共同照顧。選擇適合你的方式，邀請碼會帶到 App 的加入頁。</p>
+<div id="invite" hidden>
+<section><h2>已經安裝 App</h2><p>點一下開啟 Doggie's Diary，登入後即可接受邀請。</p><a class="button" id="open-app" href="#">開啟 App 接受邀請</a></section>
+<section><h2>還沒有 App</h2><p>請先向邀請你的家人取得測試版安裝方式；安裝並登入後，重新開啟這個連結，或在「設定 → 加入別人的家庭」貼上邀請碼。</p><div class="code" id="code"></div><button class="secondary" id="copy" type="button">複製邀請碼</button></section>
+<p class="note">邀請碼 7 天內有效，且只能使用一次。請不要把連結公開張貼。</p>
+</div>
+<p id="invalid" class="error" hidden>這個連結沒有邀請碼，請向邀請者重新索取。</p>
+</main>
+<script>
+const code=new URLSearchParams(location.search).get("code");
+if(code&&code.length<=256){
+ document.getElementById("invite").hidden=false;
+ document.getElementById("code").textContent=code;
+ document.getElementById("open-app").href="pawday://join-family?code="+encodeURIComponent(code);
+ document.getElementById("copy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(code);document.getElementById("copy").textContent="已複製邀請碼"}catch{document.getElementById("copy").textContent="請長按上方邀請碼複製"}});
+}else document.getElementById("invalid").hidden=false;
+</script></body></html>
